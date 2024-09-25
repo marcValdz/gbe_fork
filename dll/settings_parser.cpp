@@ -1448,6 +1448,23 @@ static void parse_stats_features(class Settings *settings_client, class Settings
         long val_server = ini.GetLongValue("main::stats", "paginated_achievements_icons", settings_server->paginated_achievements_icons);
         settings_server->paginated_achievements_icons = static_cast<int>(val_server);
     }
+
+    {
+        long val_client_i = ini.GetLongValue("main::stats", "stat_int_min_diff_progress", settings_client->stat_int_min_diff_progress);
+        settings_client->stat_int_min_diff_progress = static_cast<int>(val_client_i);
+
+        long val_server_i = ini.GetLongValue("main::stats", "stat_int_min_diff_progress", settings_server->stat_int_min_diff_progress);
+        settings_server->stat_int_min_diff_progress = static_cast<int>(val_server_i);
+    }
+
+        {
+        double val_client_d = ini.GetDoubleValue("main::stats", "stat_float_min_diff_progress", settings_client->stat_float_min_diff_progress);
+        settings_client->stat_float_min_diff_progress = static_cast<float>(val_client_d);
+
+        double val_server_d = ini.GetDoubleValue("main::stats", "stat_float_min_diff_progress", settings_server->stat_float_min_diff_progress);
+        settings_server->stat_float_min_diff_progress = static_cast<float>(val_server_d);
+    }
+
 }
 
 

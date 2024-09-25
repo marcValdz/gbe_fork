@@ -128,7 +128,7 @@ Steam_User_Stats::InternalSetResult<int32> Steam_User_Stats::set_stat_internal( 
                     } catch(...){}
                 }
 
-                if (indicate_progress) {
+                if (indicate_progress && (stats_data->second + settings->start_int_min_diff_progress) >= nData) {
                     IndicateAchievementProgress(t.name.c_str(), nData, std::stoi(t.max_value));
                 }
             }
@@ -202,7 +202,7 @@ Steam_User_Stats::InternalSetResult<std::pair<GameServerStats_Messages::StatInfo
                     } catch(...){}
                 }
 
-                if (indicate_progress) {
+                if (indicate_progress && (stats_data->second + settings->start_float_min_diff_progress) >= fData) {
                     IndicateAchievementProgress(t.name.c_str(), (uint32)fData, (uint32)std::stof(t.max_value));
                 }
             }
