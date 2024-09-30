@@ -259,7 +259,7 @@ public:
     // the stat itself is always saved regardless of that flag, only affects the achievement progress
     bool save_only_higher_stat_achievement_progress = true;
     // Minimum value to indicate progress being made for the user.
-    float stat_float_min_diff_progress = 0.1;
+    float stat_min_diff_progress = 0.1f;
     // the emulator loads the achievements icons is memory mainly for `ISteamUserStats::GetAchievementIcon()`
     // this defines how many icons to load each iteration when the periodic callback in `Steam_User_Stats` is triggered
     // or when the app calls `SteamAPI_RunCallbacks()`
