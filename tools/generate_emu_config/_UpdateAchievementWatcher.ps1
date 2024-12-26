@@ -1,5 +1,13 @@
 $sourcePath = ".\output"
+if (-not (Test-Path -Path $sourcePath)) {
+    Write-Host ".\output directory doesn't exist. Please run `generate_emu_config.exe` first."
+    exit 1
+}
+
 $destinationPath = "$env:APPDATA\Achievement Watcher\steam_cache\schema"
+if (-not (Test-Path -Path $destinationPath)) {
+    New-Item -ItemType Directory -Path $destinationPath -Force | Out-Null
+}
 
 # Initialize a collection to store the gameIndex data
 $list = @()
@@ -18,7 +26,7 @@ Get-ChildItem -Path $sourcePath -Directory | ForEach-Object {
         # Add the source JSON entries to the collection
         $list += $sourceJson
         
-        # Copy other files from source to destination
+        # Copy everything else to the destination, minus the .json file
         Get-ChildItem -Path $gameSchemaPath | Where-Object { $_.Name -ne "gameIndex.json" } |
             ForEach-Object {
                 Copy-Item -Path $_.FullName -Destination $destinationPath -Force -Recurse
@@ -41,4 +49,5 @@ New-Item -ItemType SymbolicLink -Path $cfgIndexPath -Target $destinationGameInde
 
 Write-Host "Achievement Watcher files have been successfully updated."
 Write-Host "To apply the changes, please restart AW's watchdog (node.exe), or sign out/restart your PC."
+
 #>
