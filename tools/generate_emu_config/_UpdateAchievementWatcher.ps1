@@ -47,7 +47,32 @@ $cfgIndexPath = Join-Path $AW_Path "cfg\gameIndex.json"
 Set-Content -Path $schemaIndexPath -Value $sortedJSON -Encoding UTF8
 Set-Content -Path $cfgIndexPath -Value $sortedJSON -Encoding UTF8
 
-Write-Host "Achievement Watcher files have been successfully updated."
-Write-Host "To apply the changes, please restart AW's watchdog (node.exe), or sign out/restart your PC."
+# Restart AW Watchdog
+$wd = "C:\Program Files\Achievement Watcher\nw"
+if (-Not (Test-Path $wd)) {
+    Write-Host "Error: Achievement Watcher is not installed. Directory '$wd' does not exist."
+    exit 1
+}
 
+Write-Host "Stopping AW Watchdog (node.exe)..."
+$nodeProcess = Get-Process -Name node -ErrorAction SilentlyContinue
+if ($nodeProcess) {
+    Stop-Process -Name node -Force -ErrorAction Stop
+    Write-Host "Successfully stopped AW Watchdog."
+} else {
+    Write-Host "Error: node.exe is not running."
+}
+
+Start-Sleep -Seconds 2
+
+Write-Host "Restarting AW Watchdog (node.exe)..."
+$exe = Join-Path $wd "nw.exe"
+if (Test-Path $exe) {
+    Start-Process -FilePath $exe -WorkingDirectory $wd -ArgumentList "-config watchdog.json" -ErrorAction Stop
+    Write-Host "Successfully restarted AW Watchdog."
+} else {
+    Write-Host "Error: '$exe' does not exist. AW Watchdog executable is missing."
+}
+
+Write-Host "Achievement Watcher updated successfully!"
 #>
