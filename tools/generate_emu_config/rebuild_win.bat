@@ -52,6 +52,7 @@ call "%SIGNER_TOOL%" "%OUT_DIR%\parse_achievements_schema\parse_achievements_sch
 copy /y "steam_default_icon_locked.jpg" "%OUT_DIR%\generate_emu_config\"
 copy /y "steam_default_icon_unlocked.jpg" "%OUT_DIR%\generate_emu_config\"
 copy /y "README.md" "%OUT_DIR%\generate_emu_config\"
+copy /y "_UpdateAchievementWatcher.ps1" "%OUT_DIR%\generate_emu_config\"
 echo Check the README>> "%OUT_DIR%\generate_emu_config\my_login.EXAMPLE.txt"
 echo Check the README>> "%OUT_DIR%\generate_emu_config\top_owners_ids.EXAMPLE.txt"
 echo You can use a website like: https://steamladder.com/games/>> "%OUT_DIR%\generate_emu_config\top_owners_ids.EXAMPLE.txt"
@@ -68,4 +69,4 @@ goto :end_script
   )
 
   endlocal
-  exit /b %LAST_ERR_CODE%
+  pause /b %LAST_ERR_CODE%
